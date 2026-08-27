@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { projects } from "@/data/portfolio";
 
 export default function Projects() {
@@ -20,9 +21,9 @@ export default function Projects() {
           </h2>
 
           <p className="mt-5 max-w-2xl text-base leading-7 text-white/60 md:text-lg">
-            A collection of AI-powered applications, full-stack products,
-            and data-driven systems I've built while exploring technology
-            and solving real-world problems.
+            A collection of AI-powered applications, full-stack products, and
+            data-driven systems I&apos;ve built while exploring technology and
+            solving real-world problems.
           </p>
         </div>
 
@@ -33,13 +34,14 @@ export default function Projects() {
               key={project.number}
               className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-500 hover:border-cyan-400/40 hover:bg-white/[0.05]"
             >
-              {/* Image */}
+              {/* Project Image */}
               <div className="relative aspect-video w-full overflow-hidden bg-black/40">
-                <img
+                <Image
                   src={project.image}
                   alt={`${project.name} project preview`}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
                 {/* Image Overlay */}
@@ -51,16 +53,9 @@ export default function Projects() {
                     {project.number}
                   </span>
                 </div>
-
-                {/* Project Type */}
-                <div className="absolute right-5 top-5">
-                  <span className="rounded-full border px-3 py-1 text-xs uppercase tracking-wider text-cyan-300 backdrop-blur-md">
-                    {project.kind}
-                  </span>
-                </div>
               </div>
 
-              {/* Content */}
+              {/* Project Content */}
               <div className="p-6 md:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-cyan-300">
