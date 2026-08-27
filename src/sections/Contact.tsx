@@ -116,7 +116,6 @@ export default function Contact() {
 
       <footer className="relative z-10 max-w-4xl mx-auto mt-32 flex justify-between font-mono text-[10px] tracking-widest2 text-sand/40 uppercase">
         <span>© {new Date().getFullYear()} Nadar</span>
-        <span>Designed &amp; built as a digital exhibition</span>
       </footer>
     </section>
   );

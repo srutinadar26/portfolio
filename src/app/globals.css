@@ -156,6 +156,9 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: #176f7e;
+  text-shadow:
+    0 0 6px rgba(23, 111, 126, 0.45),
+    0 0 14px rgba(23, 111, 126, 0.25);
 }
 
 .editorial-underline {

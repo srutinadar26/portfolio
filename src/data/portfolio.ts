@@ -1,12 +1,9 @@
-// Central data file. Edit this file to update site content —
-// components read from here so copy and visuals stay in sync.
-
 export const personal = {
   firstName: "SRUTI",
   lastName: "NADAR",
   fullName: "Sruti Nadar",
   statement:
-    "Building digital products at the intersection of engineering and design from interfaces to the data underneath them.",
+    "Building digital products at the intersection of engineering and design, from interfaces to the data underneath them.",
   email: "shruti.nadar26@gmail.com",
   socials: {
     github: "https://github.com/srutinadar26",
@@ -30,7 +27,6 @@ export const introduction = {
   ],
 };
 
-// Technologies for the floating balls visualization
 export const technologies = [
   { name: "Python", icon: "python" },
   { name: "JavaScript", icon: "javascript" },
@@ -45,18 +41,14 @@ export const technologies = [
   { name: "Firebase", icon: "firebase" },
   { name: "NumPy", icon: "numpy" },
   { name: "Pandas", icon: "pandas" },
-  { name: "Scikit-learn", icon: "scikitlearn" },
-  { name: "TensorFlow", icon: "tensorflow" },
-  { name: "Transformers", icon: "transformers" },
-  { name: "FastAPI", icon: "fastapi" },
-  { name: "Flask", icon: "flask" },
+  { name: "Matplotlib", icon: "matplotlib" },
+  { name: "Seaborn", icon: "seaborn" },
+  { name: "AWS", icon: "aws" },
   { name: "Docker", icon: "docker" },
   { name: "Git", icon: "git" },
   { name: "GitHub", icon: "github" },
-  { name: "Socket.IO", icon: "socketio" },
 ];
 
-// Keep skillCategories for the existing Skills section structure
 export const skillCategories = [
   {
     label: "FRONTEND",
@@ -64,7 +56,7 @@ export const skillCategories = [
   },
   {
     label: "BACKEND",
-    skills: ["Node.js", "Express", "FastAPI", "Flask"],
+    skills: ["Node.js", "Express"],
   },
   {
     label: "DATABASE",
@@ -72,38 +64,42 @@ export const skillCategories = [
   },
   {
     label: "AI / ML / DATA",
-    skills: ["Python", "NumPy", "Pandas", "Scikit-learn", "TensorFlow", "Transformers"],
+    skills: [
+      "Python",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "Seaborn",
+      "Scikit-learn",
+      "TensorFlow",
+    ],
   },
   {
-    label: "TOOLS",
-    skills: ["Git", "GitHub", "Docker", "Socket.IO"],
+    label: "CLOUD / TOOLS",
+    skills: ["AWS", "Git", "GitHub", "Docker"],
   },
 ];
 
-// Simple connection graph for the tech constellation visualization.
 export const skillConnections: [string, string][] = [
   ["React", "JavaScript"],
   ["JavaScript", "HTML"],
   ["JavaScript", "CSS"],
+  ["Tailwind CSS", "CSS"],
   ["Node.js", "Express"],
   ["Express", "MongoDB"],
   ["Node.js", "MongoDB"],
   ["Python", "NumPy"],
   ["NumPy", "Pandas"],
+  ["Pandas", "Matplotlib"],
+  ["Pandas", "Seaborn"],
   ["Pandas", "Scikit-learn"],
   ["Python", "TensorFlow"],
-  ["TensorFlow", "Transformers"],
-  ["Python", "FastAPI"],
-  ["Python", "Flask"],
   ["Git", "GitHub"],
-  ["PostgreSQL", "FastAPI"],
+  ["PostgreSQL", "Node.js"],
   ["Firebase", "React"],
-  ["Tailwind CSS", "CSS"],
   ["Docker", "Node.js"],
-  ["Socket.IO", "Node.js"],
 ];
 
-// Fill in real milestones — education, hackathons, projects, research.
 export const journey: {
   date: string;
   title: string;
@@ -112,9 +108,10 @@ export const journey: {
 }[] = [
     {
       date: "2024 to Present, ending 2028",
-      title: "B.E. Artificial Intelligence & Data Science — SIES Graduate School of Technology",
+      title:
+        "B.E. Artificial Intelligence & Data Science — SIES Graduate School of Technology",
       description:
-        "Building a foundation in software development, AI, machine learning and data science.",
+        "Building a foundation in software development, artificial intelligence, machine learning, data science, and modern web technologies.",
       tag: "EDUCATION",
     },
     {
@@ -128,7 +125,7 @@ export const journey: {
       date: "March 2026",
       title: "Automation Bounty, AI Agent Challenge",
       description:
-        "Built a Medical History Aggregator and Pre-Visit Brief Generator with n8n.",
+        "Built a Medical History Aggregator and Pre-Visit Brief Generator using n8n.",
       tag: "COMPETITION",
     },
     {
@@ -140,9 +137,10 @@ export const journey: {
     },
     {
       date: "August 2025 to August 2026",
-      title: "Management Coordinator, ACM Student Chapter, SIES GST",
+      title:
+        "Management Coordinator, ACM Student Chapter, SIES GST",
       description:
-        "Coordinated technical events and workshops; hosted PARADOX 2026, an AI-themed hackathon.",
+        "Coordinated technical events and workshops and hosted PARADOX 2026, an AI-themed hackathon.",
       tag: "LEADERSHIP",
     },
   ];
@@ -163,7 +161,8 @@ export const projects: {
       description: "Real-time collaborative workspace.",
       stack: ["REACT", "NODE.JS", "SOCKET.IO", "MONGODB"],
       kind: "web",
-      image: "https://opengraph.githubassets.com/1/srutinadar26/SyncSpace",
+      image:
+        "https://opengraph.githubassets.com/1/srutinadar26/SyncSpace",
       github: "https://github.com/srutinadar26/SyncSpace",
     },
     {
@@ -173,7 +172,8 @@ export const projects: {
         "AI-powered payment scam prevention and fraud intelligence platform.",
       stack: ["PYTHON", "FASTAPI", "REACT", "TENSORFLOW"],
       kind: "ai",
-      image: "https://opengraph.githubassets.com/1/srutinadar26/UPI-sentinel",
+      image:
+        "https://opengraph.githubassets.com/1/srutinadar26/UPI-sentinel",
       github: "https://github.com/srutinadar26/UPI-sentinel",
     },
     {
@@ -183,7 +183,8 @@ export const projects: {
         "AI-powered medical misinformation detection and verification system.",
       stack: ["PYTHON", "TRANSFORMERS", "REACT", "FLASK"],
       kind: "ai",
-      image: "https://opengraph.githubassets.com/1/srutinadar26/MedVerify",
+      image:
+        "https://opengraph.githubassets.com/1/srutinadar26/MedVerify",
       github: "https://github.com/srutinadar26/MedVerify",
     },
     {
@@ -193,7 +194,8 @@ export const projects: {
         "AI-powered agriculture platform for crop recommendations and agricultural assistance.",
       stack: ["PYTHON", "SCIKIT-LEARN", "FLASK", "HTML/CSS"],
       kind: "ai",
-      image: "https://opengraph.githubassets.com/1/srutinadar26/Harvestify",
+      image:
+        "https://opengraph.githubassets.com/1/srutinadar26/Harvestify",
       github: "https://github.com/srutinadar26/Harvestify",
     },
     {
@@ -202,8 +204,10 @@ export const projects: {
       description: "Movie discovery and review platform.",
       stack: ["NODE.JS", "EXPRESS", "MONGODB", "EJS"],
       kind: "web",
-      image: "https://opengraph.githubassets.com/1/srutinadar26/movie-review-system",
-      github: "https://github.com/srutinadar26/movie-review-system",
+      image:
+        "https://opengraph.githubassets.com/1/srutinadar26/movie-review-system",
+      github:
+        "https://github.com/srutinadar26/movie-review-system",
     },
   ];
 

@@ -22,7 +22,7 @@ export default function Resume() {
           data-cursor="button"
           className="font-mono text-xs tracking-widest2 uppercase text-shadow-deep bg-cyan rounded-full px-8 py-4 whitespace-nowrap text-center hover:bg-ivory transition-colors duration-300"
         >
-          Download Resume
+          Preview Resume
         </a>
       </div>
     </section>
