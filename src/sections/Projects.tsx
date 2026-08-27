@@ -12,6 +12,15 @@ const ProjectVisual = dynamic(() => import("@/three/ProjectScenes/ProjectVisual"
 
 gsap.registerPlugin(ScrollTrigger);
 
+function iconSlug(label: string) {
+  return label
+    .toLowerCase()
+    .replace("node.js", "nodejs")
+    .replace("scikit-learn", "scikitlearn")
+    .replace("html/css", "html5")
+    .replace(/[^a-z0-9]/g, "");
+}
+
 export default function Projects() {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -54,9 +63,20 @@ export default function Projects() {
                 <p className="font-body text-sand/85 text-base leading-relaxed mb-6 max-w-md">
                   {project.description}
                 </p>
-                <p className="font-mono text-[11px] tracking-widest2 text-sand/60 mb-6">
-                  STACK / {project.stack.join(" / ")}
-                </p>
+                <div className="flex flex-wrap items-center gap-3 mb-6" aria-label={`${project.name} technology stack`}>
+                  {project.stack.map((technology) => (
+                    <span key={technology} className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest2 text-sand/75">
+                      <img
+                        src={`https://cdn.simpleicons.org/${iconSlug(technology)}`}
+                        alt=""
+                        width="16"
+                        height="16"
+                        className="h-4 w-4 object-contain"
+                      />
+                      {technology}
+                    </span>
+                  ))}
+                </div>
                 <div className="flex gap-6">
                   {project.live && (
                     <a
@@ -84,10 +104,18 @@ export default function Projects() {
               </div>
 
               <div
-                className="md:col-span-7 order-1 md:order-2 h-72 md:h-96 rounded-2xl bg-petrol-dark/40 border border-ivory/10 overflow-hidden"
+                className="relative md:col-span-7 order-1 md:order-2 h-72 md:h-96 rounded-2xl bg-petrol-dark/40 border border-ivory/10 overflow-hidden"
                 data-cursor="project"
               >
-                <ProjectVisual kind={project.kind} />
+                <img
+                  src={project.image}
+                  alt={`${project.name} project preview`}
+                  className="absolute inset-0 h-full w-full object-cover opacity-55"
+                />
+                <div className="absolute inset-0 bg-petrol-dark/35" />
+                <div className="relative z-10 h-full">
+                  <ProjectVisual kind={project.kind} />
+                </div>
               </div>
             </div>
           ))}

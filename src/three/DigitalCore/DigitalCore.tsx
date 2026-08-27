@@ -57,8 +57,8 @@ export default function DigitalCore() {
   return (
     <Canvas camera={{ position: [0, 0, 3.4], fov: 40 }} gl={{ alpha: true, antialias: true }}>
       <color attach="background" args={["#00000000"]} />
-      <ambientLight intensity={0.6} />
-      <pointLight position={[2, 2, 2]} intensity={1} color="#39C6D8" />
+      <ambientLight intensity={0.45} />
+      <pointLight position={[2, 2, 2]} intensity={0.8} color="#39C6D8" />
       <Suspense fallback={null}>
         <Core />
       </Suspense>

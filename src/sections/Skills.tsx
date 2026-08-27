@@ -156,7 +156,7 @@ function FloatingBall({
         ["--y-amp" as string]: `${yAmp}px`,
       }}
     >
-      <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-default"
+      <div className="relative w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] rounded-full flex items-center justify-center transition-all duration-300 cursor-default"
         style={{
           background: `radial-gradient(circle at 35% 35%, ${iconData?.color || '#39C6D8'}33, ${iconData?.color || '#39C6D8'}11)`,
           border: `1px solid ${iconData?.color || '#39C6D8'}44`,
@@ -166,12 +166,12 @@ function FloatingBall({
         {iconData && (
           <svg
             viewBox={iconData.viewBox}
-            className="w-5 h-5 md:w-6 md:h-6"
+            className="w-7 h-7 md:w-9 md:h-9"
             dangerouslySetInnerHTML={{ __html: iconData.paths }}
           />
         )}
         {/* Tooltip on hover */}
-        <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[9px] md:text-[10px] tracking-widest2 uppercase text-ivory bg-shadow-deep/90 border border-ivory/10 rounded px-2 py-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
+        <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap font-mono text-[10px] md:text-[11px] tracking-widest2 uppercase text-ivory bg-shadow-deep/90 border border-ivory/10 rounded px-2 py-1 z-20">
           {tech.name}
         </span>
       </div>
@@ -205,18 +205,12 @@ export default function Skills() {
         </h2>
 
         {/* Floating tech balls container */}
-        <div className="relative w-full" style={{ minHeight: "420px" }}>
+        <div className="relative w-full" style={{ minHeight: "520px" }}>
           {technologies.map((tech, i) => (
             <FloatingBall key={tech.name} tech={tech} index={i} total={technologies.length} />
           ))}
         </div>
 
-        <p className="font-mono text-[11px] text-sand/50 mt-12 max-w-xl leading-relaxed">
-          NOTE / This list reflects technologies Sruti has actually worked with.
-          The site itself is built with Next.js, Three.js, and GSAP — that
-          implementation stack is deliberately kept separate from the skills
-          above.
-        </p>
       </div>
     </section>
   );

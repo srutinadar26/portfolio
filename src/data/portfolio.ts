@@ -5,9 +5,8 @@ export const personal = {
   firstName: "SRUTI",
   lastName: "NADAR",
   fullName: "Sruti Nadar",
-  role: "SOFTWARE • WEB • AI/ML",
   statement:
-    "Building digital products at the intersection of engineering and design — from interfaces to the data underneath them.",
+    "Building digital products at the intersection of engineering and design from interfaces to the data underneath them.",
   email: "shruti.nadar26@gmail.com",
   socials: {
     github: "https://github.com/srutinadar26",
@@ -111,21 +110,42 @@ export const journey: {
   description: string;
   tag: string;
 }[] = [
-  {
-    date: "IN PROGRESS",
-    title: "Add your education milestone",
-    description:
-      "Replace this entry in src/data/portfolio.ts with real degree, coursework, or program details.",
-    tag: "EDUCATION",
-  },
-  {
-    date: "IN PROGRESS",
-    title: "Add a project or hackathon milestone",
-    description:
-      "Replace this entry with a real hackathon, research project, or technical milestone.",
-    tag: "MILESTONE",
-  },
-];
+    {
+      date: "2024 to Present, ending 2028",
+      title: "B.E. Artificial Intelligence & Data Science — SIES Graduate School of Technology",
+      description:
+        "Building a foundation in software development, AI, machine learning and data science.",
+      tag: "EDUCATION",
+    },
+    {
+      date: "August 2026",
+      title: "Smart India Hackathon (SIH), Internal Selection",
+      description:
+        "Presented UPI Sentinel, an AI-powered UPI fraud prevention platform, as part of a team.",
+      tag: "COMPETITION",
+    },
+    {
+      date: "March 2026",
+      title: "Automation Bounty, AI Agent Challenge",
+      description:
+        "Built a Medical History Aggregator and Pre-Visit Brief Generator with n8n.",
+      tag: "COMPETITION",
+    },
+    {
+      date: "April 2026",
+      title: "Ace of Diamonds, Technovate 2026",
+      description:
+        "Top 20 among 61 teams with SafePath, a community-driven women's safety solution.",
+      tag: "COMPETITION",
+    },
+    {
+      date: "August 2025 to August 2026",
+      title: "Management Coordinator, ACM Student Chapter, SIES GST",
+      description:
+        "Coordinated technical events and workshops; hosted PARADOX 2026, an AI-themed hackathon.",
+      tag: "LEADERSHIP",
+    },
+  ];
 
 export const projects: {
   number: string;
@@ -133,53 +153,59 @@ export const projects: {
   description: string;
   stack: string[];
   kind: "web" | "ai" | "database" | "creative";
+  image: string;
   github?: string;
   live?: string;
 }[] = [
-  {
-    number: "01",
-    name: "SyncSpace",
-    description: "Real-time collaborative workspace.",
-    stack: ["REACT", "NODE.JS", "SOCKET.IO", "MONGODB"],
-    kind: "web",
-    github: "https://github.com/srutinadar26/SyncSpace",
-  },
-  {
-    number: "02",
-    name: "UPI Sentinel",
-    description:
-      "AI-powered payment scam prevention and fraud intelligence platform.",
-    stack: ["PYTHON", "FASTAPI", "REACT", "TENSORFLOW"],
-    kind: "ai",
-    github: "https://github.com/srutinadar26/UPI-sentinel",
-  },
-  {
-    number: "03",
-    name: "MedVerify",
-    description:
-      "AI-powered medical misinformation detection and verification system.",
-    stack: ["PYTHON", "TRANSFORMERS", "REACT", "FLASK"],
-    kind: "ai",
-    github: "https://github.com/srutinadar26/MedVerify",
-  },
-  {
-    number: "04",
-    name: "Harvestify",
-    description:
-      "AI-powered agriculture platform for crop recommendations and agricultural assistance.",
-    stack: ["PYTHON", "SCIKIT-LEARN", "FLASK", "HTML/CSS"],
-    kind: "ai",
-    github: "https://github.com/srutinadar26/Harvestify",
-  },
-  {
-    number: "05",
-    name: "Movie Review System",
-    description: "Movie discovery and review platform.",
-    stack: ["NODE.JS", "EXPRESS", "MONGODB", "EJS"],
-    kind: "web",
-    github: "https://github.com/srutinadar26/movie-review-system",
-  },
-];
+    {
+      number: "01",
+      name: "SyncSpace",
+      description: "Real-time collaborative workspace.",
+      stack: ["REACT", "NODE.JS", "SOCKET.IO", "MONGODB"],
+      kind: "web",
+      image: "https://opengraph.githubassets.com/1/srutinadar26/SyncSpace",
+      github: "https://github.com/srutinadar26/SyncSpace",
+    },
+    {
+      number: "02",
+      name: "UPI Sentinel",
+      description:
+        "AI-powered payment scam prevention and fraud intelligence platform.",
+      stack: ["PYTHON", "FASTAPI", "REACT", "TENSORFLOW"],
+      kind: "ai",
+      image: "https://opengraph.githubassets.com/1/srutinadar26/UPI-sentinel",
+      github: "https://github.com/srutinadar26/UPI-sentinel",
+    },
+    {
+      number: "03",
+      name: "MedVerify",
+      description:
+        "AI-powered medical misinformation detection and verification system.",
+      stack: ["PYTHON", "TRANSFORMERS", "REACT", "FLASK"],
+      kind: "ai",
+      image: "https://opengraph.githubassets.com/1/srutinadar26/MedVerify",
+      github: "https://github.com/srutinadar26/MedVerify",
+    },
+    {
+      number: "04",
+      name: "Harvestify",
+      description:
+        "AI-powered agriculture platform for crop recommendations and agricultural assistance.",
+      stack: ["PYTHON", "SCIKIT-LEARN", "FLASK", "HTML/CSS"],
+      kind: "ai",
+      image: "https://opengraph.githubassets.com/1/srutinadar26/Harvestify",
+      github: "https://github.com/srutinadar26/Harvestify",
+    },
+    {
+      number: "05",
+      name: "Movie Review System",
+      description: "Movie discovery and review platform.",
+      stack: ["NODE.JS", "EXPRESS", "MONGODB", "EJS"],
+      kind: "web",
+      image: "https://opengraph.githubassets.com/1/srutinadar26/movie-review-system",
+      github: "https://github.com/srutinadar26/movie-review-system",
+    },
+  ];
 
 export const nav = [
   { label: "HOME", href: "#hero" },

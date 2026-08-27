@@ -49,7 +49,7 @@ export default function Contact() {
         <a
           href={`mailto:${personal.email}`}
           data-cursor="button"
-          className="contact-reveal editorial-underline inline-block font-mono text-lg md:text-2xl text-cyan mb-10"
+          className="contact-reveal editorial-underline inline-block font-mono text-sm md:text-lg text-cyan mb-10"
         >
           {personal.email}
         </a>
@@ -115,7 +115,7 @@ export default function Contact() {
       </div>
 
       <footer className="relative z-10 max-w-4xl mx-auto mt-32 flex justify-between font-mono text-[10px] tracking-widest2 text-sand/40 uppercase">
-        <span>© {new Date().getFullYear()} Sruti Nadar</span>
+        <span>© {new Date().getFullYear()} Nadar</span>
         <span>Designed &amp; built as a digital exhibition</span>
       </footer>
     </section>

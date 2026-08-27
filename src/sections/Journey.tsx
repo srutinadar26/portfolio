@@ -51,8 +51,8 @@ export default function Journey() {
           <div className="flex flex-col gap-16">
             {journey.map((item) => (
               <div key={item.title} className="journey-item relative">
-                <div className="absolute -left-[42px] top-1.5 w-2.5 h-2.5 rounded-full bg-cyan" />
-                <p className="font-mono text-[10px] tracking-widest2 text-cyan mb-2">
+                <div className={`absolute -left-[42px] top-1.5 w-2.5 h-2.5 rounded-full ${item.tag === "EDUCATION" ? "bg-cyan" : item.tag === "LEADERSHIP" ? "bg-[#7aa7d9]" : "bg-[#8fc9c2]"}`} />
+                <p className={`font-mono text-[10px] tracking-widest2 mb-2 ${item.tag === "EDUCATION" ? "text-cyan" : item.tag === "LEADERSHIP" ? "text-[#7aa7d9]" : "text-[#8fc9c2]"}`}>
                   {item.date} — {item.tag}
                 </p>
                 <h3 className="font-display font-semibold text-ivory text-xl md:text-2xl mb-2">
