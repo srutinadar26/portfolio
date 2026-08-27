@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+
 import Preloader from "@/components/Preloader";
 import Navigation from "@/components/Navigation";
+
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Skills from "@/sections/Skills";
@@ -16,15 +18,25 @@ export default function Home() {
 
   return (
     <>
-      {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
+      {!loaded && (
+        <Preloader onComplete={() => setLoaded(true)} />
+      )}
+
       <Navigation />
+
       <main className="relative z-10">
         <Hero ready={loaded} />
+
         <About />
+
         <Skills />
+
         <Journey />
+
         <Projects />
+
         <Resume />
+
         <Contact />
       </main>
     </>

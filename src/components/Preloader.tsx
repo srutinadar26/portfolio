@@ -64,7 +64,7 @@ export default function Preloader({
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
         {/* Location */}
         <p className="font-mono text-[10px] tracking-widest2 text-cyan mb-4">
-          COORD / 19.0760N 72.8777E
+          DEVELOPER
         </p>
 
         {/* Name */}

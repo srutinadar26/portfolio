@@ -4,7 +4,6 @@ import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-type Kind = "web" | "ai" | "database" | "creative";
 
 function WebVisual() {
   const ref = useRef<THREE.Group>(null);
@@ -112,18 +111,3 @@ function CreativeVisual() {
   );
 }
 
-export default function ProjectVisual({ kind }: { kind: Kind }) {
-  return (
-    <Canvas camera={{ position: [0, 0, 3], fov: 42 }} gl={{ alpha: true }}>
-      <color attach="background" args={["#00000000"]} />
-      <ambientLight intensity={0.6} />
-      <pointLight position={[2, 2, 2]} intensity={1} color="#39C6D8" />
-      <Suspense fallback={null}>
-        {kind === "web" && <WebVisual />}
-        {kind === "ai" && <AIVisual />}
-        {kind === "database" && <DatabaseVisual />}
-        {kind === "creative" && <CreativeVisual />}
-      </Suspense>
-    </Canvas>
-  );
-}

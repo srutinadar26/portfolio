@@ -29,7 +29,7 @@ Everything real about Sruti lives in one place:
 - `personal.socials.github` / `.linkedin` — currently empty, add real URLs.
 - `personal.resumeUrl` — points at `/resume.pdf`; drop your resume PDF into
   `public/resume.pdf`.
-- `journey` — currently placeholder entries. Replace with real education,
+- `` — currently placeholder entries. Replace with real education,
   hackathons, or technical milestones. Nothing here was invented for you on
   purpose — add only what's true.
 - `projects` — currently a single placeholder entry. Add real projects with

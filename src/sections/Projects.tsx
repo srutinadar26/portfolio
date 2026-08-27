@@ -1,123 +1,100 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/portfolio";
 
-const ProjectVisual = dynamic(() => import("@/three/ProjectScenes/ProjectVisual"), {
-  ssr: false,
-});
-
-gsap.registerPlugin(ScrollTrigger);
-
-function iconSlug(label: string) {
-  return label
-    .toLowerCase()
-    .replace("node.js", "nodejs")
-    .replace("scikit-learn", "scikitlearn")
-    .replace("html/css", "html5")
-    .replace(/[^a-z0-9]/g, "");
-}
-
 export default function Projects() {
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>(".project-board").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 40,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 80%" },
-        });
-      });
-    }, rootRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="projects" ref={rootRef} className="relative py-32 md:py-40 px-6 md:px-16">
-      <div className="max-w-6xl mx-auto">
-        <p className="eyebrow mb-4">04 / EXHIBITS</p>
-        <h2 className="font-display font-bold text-ivory text-4xl md:text-6xl tracking-tightest mb-16">
-          Projects
-        </h2>
+    <section
+      id="projects"
+      className="relative w-full px-6 py-24 md:px-12 lg:px-20"
+    >
+      <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
+        <div className="mb-16">
+          <p className="mb-4 text-sm tracking-[0.3em] text-cyan-400">
+            05 / PROJECTS
+          </p>
 
-        <div className="flex flex-col gap-24 md:gap-32">
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
+            Featured
+          </h2>
+
+          <p className="mt-5 max-w-2xl text-base leading-7 text-white/60 md:text-lg">
+            A collection of AI-powered applications, full-stack products,
+            and data-driven systems I've built while exploring technology
+            and solving real-world problems.
+          </p>
+        </div>
+
+        {/* Projects */}
+        <div className="grid gap-8 md:grid-cols-2">
           {projects.map((project) => (
-            <div
+            <article
               key={project.number}
-              className="project-board grid md:grid-cols-12 gap-8 md:gap-14 items-center border-t border-ivory/10 pt-12"
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-500 hover:border-cyan-400/40 hover:bg-white/[0.05]"
             >
-              <div className="md:col-span-5 order-2 md:order-1">
-                <p className="font-mono text-xs tracking-widest2 text-cyan mb-4">
-                  PROJECT / {project.number}
-                </p>
-                <h3 className="font-display font-bold text-ivory text-3xl md:text-4xl mb-4">
-                  {project.name}
-                </h3>
-                <p className="font-body text-sand/85 text-base leading-relaxed mb-6 max-w-md">
+              {/* Image */}
+              <div className="relative aspect-video w-full overflow-hidden bg-black/40">
+                <img
+                  src={project.image}
+                  alt={`${project.name} project preview`}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+
+                {/* Image Overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                {/* Project Number */}
+                <div className="absolute left-5 top-5">
+                  <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs tracking-[0.2em] text-white backdrop-blur-md">
+                    {project.number}
+                  </span>
+                </div>
+
+                {/* Project Type */}
+                <div className="absolute right-5 top-5">
+                  <span className="rounded-full border px-3 py-1 text-xs uppercase tracking-wider text-cyan-300 backdrop-blur-md">
+                    {project.kind}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 md:p-7">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-cyan-300">
+                    {project.name}
+                  </h3>
+
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${project.name} on GitHub`}
+                    className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-medium tracking-wider text-white/70 transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-300"
+                  >
+                    GITHUB ↗
+                  </a>
+                </div>
+
+                <p className="mt-4 text-sm leading-6 text-white/60 md:text-base">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap items-center gap-3 mb-6" aria-label={`${project.name} technology stack`}>
+
+                {/* Tech Stack */}
+                <div className="mt-6 flex flex-wrap gap-2">
                   {project.stack.map((technology) => (
-                    <span key={technology} className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest2 text-sand/75">
-                      <img
-                        src={`https://cdn.simpleicons.org/${iconSlug(technology)}`}
-                        alt=""
-                        width="16"
-                        height="16"
-                        className="h-4 w-4 object-contain"
-                      />
+                    <span
+                      key={technology}
+                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] tracking-[0.15em] text-white/60 transition-colors duration-300 group-hover:border-cyan-400/20 group-hover:text-white/80"
+                    >
                       {technology}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-6">
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      data-cursor="project"
-                      className="editorial-underline font-mono text-xs tracking-widest2 text-ivory uppercase"
-                    >
-                      View Project →
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      data-cursor="project"
-                      className="editorial-underline font-mono text-xs tracking-widest2 text-sand uppercase"
-                    >
-                      GitHub →
-                    </a>
-                  )}
-                </div>
               </div>
-
-              <div
-                className="relative md:col-span-7 order-1 md:order-2 h-72 md:h-96 rounded-2xl bg-petrol-dark/40 border border-ivory/10 overflow-hidden"
-                data-cursor="project"
-              >
-                <img
-                  src={project.image}
-                  alt={`${project.name} project preview`}
-                  className="absolute inset-0 h-full w-full object-cover opacity-55"
-                />
-                <div className="absolute inset-0 bg-petrol-dark/35" />
-                <div className="relative z-10 h-full">
-                  <ProjectVisual kind={project.kind} />
-                </div>
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

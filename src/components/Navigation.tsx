@@ -7,12 +7,34 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
 
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
+
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+
+    const target = document.getElementById(href);
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      window.history.replaceState(null, "", `#${href}`);
+    }
+  };
 
   return (
     <nav
@@ -27,7 +49,6 @@ export default function Navigation() {
 
         flex
         items-center
-
         gap-0.5
         sm:gap-1
         md:gap-2
@@ -46,33 +67,30 @@ export default function Navigation() {
         py-1.5
         sm:py-2
 
-        /* Hide scrollbar */
         [scrollbar-width:none]
         [-ms-overflow-style:none]
 
-        /* Dark turquoise glass */
         bg-[#073b46]/65
         backdrop-blur-xl
         backdrop-saturate-150
 
-        /* Turquoise glass edge */
         border
         border-[#39c6d8]/25
 
-        /* Depth + inner glass highlight */
         shadow-[0_8px_32px_rgba(2,35,42,0.45),inset_0_1px_0_rgba(57,198,216,0.16),inset_0_-1px_0_rgba(0,0,0,0.15)]
 
         transition-all
         duration-500
         ease-out
 
-        ${scrolled
-          ? `
+        ${
+          scrolled
+            ? `
               bg-[#073b46]/78
               border-[#39c6d8]/30
               shadow-[0_12px_38px_rgba(2,35,42,0.55),inset_0_1px_0_rgba(57,198,216,0.18),inset_0_-1px_0_rgba(0,0,0,0.18)]
             `
-          : `
+            : `
               bg-[#073b46]/60
             `
         }
@@ -81,8 +99,8 @@ export default function Navigation() {
       {nav.map((item) => (
         <a
           key={item.href}
-          href={item.href}
-          data-cursor="button"
+          href={`#${item.href}`}
+          onClick={(e) => handleNavigation(e, item.href)}
           className="
             group
             relative
@@ -92,13 +110,14 @@ export default function Navigation() {
             justify-center
 
             font-mono
+
             text-[9px]
             xs:text-[10px]
             sm:text-[11px]
             md:text-[12px]
 
             tracking-[0.08em]
-            sm:tracking-widest2
+            sm:tracking-widest
 
             text-[#d8d4bd]
 
@@ -110,7 +129,6 @@ export default function Navigation() {
             sm:py-2
 
             rounded-full
-
             whitespace-nowrap
 
             transition-all
@@ -118,7 +136,6 @@ export default function Navigation() {
             ease-out
 
             hover:text-[#f2eed8]
-
             hover:-translate-y-[2px]
 
             hover:bg-[#0b5360]/65
@@ -134,7 +151,6 @@ export default function Navigation() {
         >
           {item.label}
 
-          {/* Futuristic turquoise light */}
           <span
             className="
               pointer-events-none
