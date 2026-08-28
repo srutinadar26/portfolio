@@ -4,7 +4,10 @@ import { Suspense, useRef } from "react";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import {
+  EffectComposer,
+  Bloom,
+} from "@react-three/postprocessing";
 
 import * as THREE from "three";
 
@@ -15,7 +18,7 @@ import Particles from "./Particles";
 import { useMousePosition } from "@/hooks/useMousePosition";
 
 /* =========================================================
-   RESPONSIVE CAMERA RIG
+   RESPONSIVE CAMERA + MODEL RIG
    ========================================================= */
 
 function Rig({
@@ -29,45 +32,88 @@ function Rig({
   const { camera, size } = useThree();
 
   useFrame(() => {
-    /*
-     * Adjust camera behavior based on screen width.
-     */
-    const isMobile = size.width < 640;
-    const isTablet = size.width >= 640 && size.width < 1024;
+    const width = size.width;
 
-    const mouseStrengthX = isMobile
-      ? 0.15
+    const isSmallMobile = width < 480;
+    const isMobile = width < 640;
+    const isTablet = width >= 640 && width < 1024;
+
+    /* -------------------------------------------------------
+       CAMERA
+       ------------------------------------------------------- */
+
+    const cameraZ = isSmallMobile
+      ? 7.2
+      : isMobile
+        ? 6.8
+        : isTablet
+          ? 6.0
+          : 5.2;
+
+    const baseCameraX = isMobile
+      ? 0
       : isTablet
-        ? 0.25
-        : 0.4;
+        ? 0.2
+        : 0.45;
 
-    const mouseStrengthY = isMobile
-      ? 0.08
-      : isTablet
-        ? 0.14
-        : 0.2;
+    const baseCameraY = isSmallMobile
+      ? 0.95
+      : isMobile
+        ? 1.05
+        : isTablet
+          ? 1.25
+          : 1.4;
 
-    const targetX = mouse.current.x * mouseStrengthX;
+    /* -------------------------------------------------------
+       MOUSE MOVEMENT
+       Much weaker on phones.
+       ------------------------------------------------------- */
+
+    const mouseStrengthX = isSmallMobile
+      ? 0.02
+      : isMobile
+        ? 0.04
+        : isTablet
+          ? 0.12
+          : 0.28;
+
+    const mouseStrengthY = isSmallMobile
+      ? 0.015
+      : isMobile
+        ? 0.03
+        : isTablet
+          ? 0.08
+          : 0.14;
+
+    const targetX =
+      baseCameraX +
+      mouse.current.x * mouseStrengthX;
 
     const targetY =
-      (isMobile ? 1.25 : isTablet ? 1.35 : 1.4) +
+      baseCameraY +
       mouse.current.y * mouseStrengthY;
 
     camera.position.x = THREE.MathUtils.lerp(
       camera.position.x,
       targetX,
-      0.03
+      0.035
     );
 
     camera.position.y = THREE.MathUtils.lerp(
       camera.position.y,
       targetY,
-      0.03
+      0.035
+    );
+
+    camera.position.z = THREE.MathUtils.lerp(
+      camera.position.z,
+      cameraZ,
+      0.035
     );
 
     camera.lookAt(
-      0,
-      isMobile ? 1.15 : 1.2,
+      isMobile ? 0 : 0.15,
+      isMobile ? 0.9 : 1.15,
       0
     );
   });
@@ -76,49 +122,113 @@ function Rig({
 }
 
 /* =========================================================
-   RESPONSIVE CAMERA SETTINGS
+   RESPONSIVE MODEL
+   ========================================================= */
+
+function ResponsiveCharacter({
+  mouse,
+}: {
+  mouse: React.MutableRefObject<{
+    x: number;
+    y: number;
+  }>;
+}) {
+  const { size } = useThree();
+
+  const width = size.width;
+
+  /*
+   * IMPORTANT:
+   *
+   * We scale the Character itself instead of changing
+   * Character.tsx.
+   */
+
+  const scale =
+    width < 480
+      ? 0.62
+      : width < 640
+        ? 0.70
+        : width < 768
+          ? 0.82
+          : width < 1024
+            ? 0.90
+            : 1;
+
+  /*
+   * Horizontal position.
+   *
+   * Desktop -> right side
+   * Mobile  -> centered
+   */
+
+  const x =
+    width < 640
+      ? 0
+      : width < 1024
+        ? 0.45
+        : 0.95;
+
+  /*
+   * Character's own internal position is -1.1.
+   * We compensate slightly so it remains visually centered.
+   */
+
+  const y =
+    width < 480
+      ? 0.05
+      : width < 640
+        ? 0
+        : width < 1024
+          ? -0.05
+          : 0;
+
+  return (
+    <group
+      position={[x, y, 0]}
+      scale={scale}
+    >
+      <Character mouse={mouse} />
+    </group>
+  );
+}
+
+/* =========================================================
+   RESPONSIVE CAMERA INITIALIZATION
    ========================================================= */
 
 function ResponsiveCamera() {
   const { camera, size } = useThree();
 
+  const width = size.width;
+
   if (!(camera instanceof THREE.PerspectiveCamera)) {
     return null;
   }
 
-  const width = size.width;
-
   /*
-   * Mobile
+   * These are only the initial values.
+   * Rig handles the smooth movement afterwards.
    */
+
   if (width < 480) {
-    camera.position.set(0, 1.25, 6.2);
-    camera.fov = 44;
-  }
-
-  /*
-   * Large mobile / small tablet
-   */
-  else if (width < 768) {
-    camera.position.set(0, 1.3, 5.8);
-    camera.fov = 42;
-  }
-
-  /*
-   * Tablet
-   */
-  else if (width < 1024) {
-    camera.position.set(0, 1.35, 5.5);
-    camera.fov = 40;
-  }
-
-  /*
-   * Desktop
-   */
-  else {
-    camera.position.set(0, 1.4, 5.2);
+    camera.position.set(0, 0.95, 7.2);
+    camera.fov = 47;
+  } else if (width < 640) {
+    camera.position.set(0, 1.05, 6.8);
+    camera.fov = 45;
+  } else if (width < 768) {
+    camera.position.set(0.2, 1.2, 6.2);
+    camera.fov = 43;
+  } else if (width < 1024) {
+    camera.position.set(0.25, 1.3, 5.8);
+    camera.fov = 41;
+  } else {
+    camera.position.set(0.45, 1.4, 5.2);
     camera.fov = 38;
   }
+
+  camera.aspect = size.width / size.height;
 
   camera.updateProjectionMatrix();
 
@@ -138,40 +248,22 @@ export default function HeroScene({
 
   return (
     <Canvas
-      /*
-       * Responsive pixel ratio.
-       * Lower on mobile for better performance.
-       */
-      dpr={[1, reduced ? 1.2 : 1.8]}
-
-      /*
-       * Responsive camera starts here.
-       * ResponsiveCamera adjusts it after Canvas mounts.
-       */
+      dpr={[1, reduced ? 1.2 : 1.6]}
       camera={{
-        position: [0, 1.4, 5.2],
-        fov: 38,
+        position: [0, 1.05, 6.8],
+        fov: 45,
         near: 0.1,
         far: 100,
       }}
-
-      /*
-       * Keep antialiasing but don't use transparent
-       * canvas rendering.
-       */
       gl={{
         antialias: true,
         alpha: false,
         powerPreference: "high-performance",
       }}
-
-      /*
-       * Don't automatically clear the scene with transparency.
-       */
       frameloop="always"
     >
       {/* =====================================================
-          SOLID HERO BACKGROUND
+          BACKGROUND
           ===================================================== */}
 
       <color
@@ -180,10 +272,14 @@ export default function HeroScene({
       />
 
       {/* =====================================================
-          RESPONSIVE CAMERA
+          CAMERA
           ===================================================== */}
 
       <ResponsiveCamera />
+
+      {!reduced && (
+        <Rig mouse={mouse} />
+      )}
 
       {/* =====================================================
           LIGHTING
@@ -211,31 +307,21 @@ export default function HeroScene({
           ===================================================== */}
 
       <Suspense fallback={null}>
-        <Character mouse={mouse} />
+
+        <ResponsiveCharacter
+          mouse={mouse}
+        />
 
         <FloatingObjects />
 
         {!reduced && (
           <Particles count={180} />
         )}
+
       </Suspense>
 
       {/* =====================================================
-          MOUSE CAMERA MOVEMENT
-          ===================================================== */}
-
-      {!reduced && (
-        <Rig mouse={mouse} />
-      )}
-
-      {/* =====================================================
-          GLOW
-          =====================================================
-
-          Bloom is kept subtle because your design uses
-          turquoise/cobalt lighting.
-
-          There is NO VIGNETTE here.
+          BLOOM
           ===================================================== */}
 
       {!reduced && (
