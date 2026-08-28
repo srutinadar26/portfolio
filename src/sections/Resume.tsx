@@ -12,7 +12,7 @@ export default function Resume() {
             Resume
           </h3>
           <p className="font-body text-sand/80 text-sm mt-2 max-w-md">
-            Full technical background, skills, and project history in one document.
+            A concise overview of my skills, experience, projects, and technical journey
           </p>
         </div>
         <a

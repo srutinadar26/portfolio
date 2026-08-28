@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+
 import { projects } from "@/data/portfolio";
 
 export default function Projects() {
@@ -10,7 +11,11 @@ export default function Projects() {
       className="relative w-full px-6 py-24 md:px-12 lg:px-20"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
+
+        {/* =====================================================
+            SECTION HEADER
+            ===================================================== */}
+
         <div className="mb-16">
           <p className="mb-4 text-sm tracking-[0.3em] text-cyan-400">
             05 / PROJECTS
@@ -27,38 +32,84 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Projects */}
+        {/* =====================================================
+            PROJECT GRID
+            ===================================================== */}
+
         <div className="grid gap-8 md:grid-cols-2">
           {projects.map((project) => (
             <article
-              key={project.number}
-              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm transition-all duration-500 hover:border-cyan-400/40 hover:bg-white/[0.05]"
+              key={project.name}
+              className="
+                group
+                overflow-hidden
+                rounded-2xl
+                border
+                border-white/10
+                bg-white/[0.03]
+                backdrop-blur-sm
+                transition-all
+                duration-500
+                hover:border-cyan-400/40
+                hover:bg-white/[0.05]
+              "
             >
-              {/* Project Image */}
+
+              {/* =================================================
+                  PROJECT IMAGE
+                  ================================================= */}
+
               <div className="relative aspect-video w-full overflow-hidden bg-black/40">
+
                 <Image
                   src={project.image}
                   alt={`${project.name} project preview`}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="
+                    object-cover
+                    transition-transform
+                    duration-700
+                    group-hover:scale-105
+                  "
                 />
 
                 {/* Image Overlay */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
-                {/* Project Number */}
-                <div className="absolute left-5 top-5">
-                  <span className="rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs tracking-[0.2em] text-white backdrop-blur-md">
-                    {project.number}
-                  </span>
-                </div>
+                <div
+                  className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    bg-gradient-to-t
+                    from-black/70
+                    via-black/10
+                    to-transparent
+                  "
+                />
+
               </div>
 
-              {/* Project Content */}
+              {/* =================================================
+                  PROJECT CONTENT
+                  ================================================= */}
+
               <div className="p-6 md:p-7">
+
+                {/* Project Title + GitHub */}
+
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-2xl font-semibold text-white transition-colors duration-300 group-hover:text-cyan-300">
+
+                  <h3
+                    className="
+                      text-2xl
+                      font-semibold
+                      text-white
+                      transition-colors
+                      duration-300
+                      group-hover:text-cyan-300
+                    "
+                  >
                     {project.name}
                   </h3>
 
@@ -67,27 +118,101 @@ export default function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`View ${project.name} on GitHub`}
-                    className="shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-medium tracking-wider text-white/70 transition-all duration-300 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:text-cyan-300"
+                    className="
+                      shrink-0
+                      rounded-full
+                      border
+                      border-white/10
+                      px-4
+                      py-2
+                      text-xs
+                      font-medium
+                      tracking-wider
+                      text-white/70
+                      transition-all
+                      duration-300
+                      hover:border-cyan-400/50
+                      hover:bg-cyan-400/10
+                      hover:text-cyan-300
+                    "
                   >
                     GITHUB ↗
                   </a>
+
                 </div>
 
-                <p className="mt-4 text-sm leading-6 text-white/60 md:text-base">
+                {/* =================================================
+                    DESCRIPTION
+                    ================================================= */}
+
+                <p
+                  className="
+                    mt-4
+                    text-sm
+                    leading-6
+                    text-white/60
+                    md:text-base
+                  "
+                >
                   {project.description}
                 </p>
 
-                {/* Tech Stack */}
+                {/* =================================================
+                    TECH STACK
+                    ================================================= */}
+
                 <div className="mt-6 flex flex-wrap gap-2">
+
                   {project.stack.map((technology) => (
                     <span
-                      key={technology}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] tracking-[0.15em] text-white/60 transition-colors duration-300 group-hover:border-cyan-400/20 group-hover:text-white/80"
+                      key={technology.name}
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        border
+                        border-white/10
+                        bg-white/[0.04]
+                        px-3
+                        py-1.5
+                        text-[10px]
+                        tracking-[0.12em]
+                        text-white/60
+                        transition-all
+                        duration-300
+                        group-hover:border-cyan-400/20
+                        group-hover:text-white/80
+                      "
                     >
-                      {technology}
+
+                      {/* Technology Icon */}
+
+                      <img
+                        src={`https://cdn.simpleicons.org/${technology.icon}`}
+                        alt=""
+                        aria-hidden="true"
+                        className="
+                          h-3.5
+                          w-3.5
+                          shrink-0
+                          object-contain
+                          opacity-70
+                          transition-all
+                          duration-300
+                          group-hover:opacity-100
+                        "
+                      />
+
+                      {/* Technology Name */}
+
+                      {technology.name}
+
                     </span>
                   ))}
+
                 </div>
+
               </div>
             </article>
           ))}

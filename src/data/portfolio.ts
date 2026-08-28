@@ -308,110 +308,80 @@ export const journey: JourneyItem[] = [
 
 export const projects = [
   {
-    number: "01",
     name: "SyncSpace",
-
     description:
       "Real-time collaborative workspace for teams to communicate, organize, and work together.",
-
     stack: [
-      "REACT",
-      "NODE.JS",
-      "SOCKET.IO",
-      "MONGODB",
+      { name: "React", icon: "react" },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "Socket.IO", icon: "socketio" },
+      { name: "MongoDB", icon: "mongodb" },
     ],
-
     image: "/images/projects/space.jpg",
-
-    github:
-      "https://github.com/srutinadar26/SyncSpace",
+    github: "https://github.com/srutinadar26/SyncSpace",
   },
 
   {
-    number: "02",
     name: "UPI Sentinel",
-
     description:
       "AI-powered payment scam prevention and fraud intelligence platform designed to detect suspicious UPI transactions and behavioral patterns.",
-
     stack: [
-      "PYTHON",
-      "FASTAPI",
-      "REACT",
-      "POSTGRESQL",
-      "DOCKER",
+      { name: "Python", icon: "python" },
+      { name: "FastAPI", icon: "fastapi" },
+      { name: "React", icon: "react" },
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "Docker", icon: "docker" },
     ],
-
     image: "/images/projects/upi.jpg",
-
-    github:
-      "https://github.com/srutinadar26/UPI-sentinel",
+    github: "https://github.com/srutinadar26/UPI-sentinel",
   },
 
   {
-    number: "03",
     name: "MedVerify",
-
     description:
       "AI-powered medical misinformation detection and verification system that analyzes claims and provides evidence-based verification.",
-
     stack: [
-      "PYTHON",
-      "TRANSFORMERS",
-      "REACT",
-      "FLASK",
+      { name: "Python", icon: "python" },
+      { name: "Transformers", icon: "huggingface" },
+      { name: "React", icon: "react" },
+      { name: "Flask", icon: "flask" },
     ],
-
     image: "/images/projects/med.jpg",
-
-    github:
-      "https://github.com/srutinadar26/MedVerify",
+    github: "https://github.com/srutinadar26/MedVerify",
   },
 
   {
-    number: "04",
     name: "Harvestify",
-
     description:
       "AI-powered agriculture platform providing crop recommendations and intelligent agricultural assistance.",
-
     stack: [
-      "PYTHON",
-      "SCIKIT-LEARN",
-      "FLASK",
-      "HTML",
-      "CSS",
+      { name: "Python", icon: "python" },
+      { name: "Scikit-learn", icon: "scikitlearn" },
+      { name: "Flask", icon: "flask" },
+      { name: "HTML", icon: "html" },
+      { name: "CSS", icon: "css" },
     ],
-
     image: "/images/projects/harvestify.jpg",
-
-    github:
-      "https://github.com/srutinadar26/Harvestify",
+    github: "https://github.com/srutinadar26/Harvestify",
   },
 
   {
-    number: "05",
     name: "Movie Review System",
-
     description:
       "Movie discovery and review platform where users can explore movies, watch trailers, manage reviews and watchlists, and receive personalized recommendations.",
-
     stack: [
-      "REACT",
-      "FIREBASE",
-      "TMDB API",
-      "AXIOS",
-      "JAVASCRIPT",
-      "CSS",
+      { name: "React", icon: "react" },
+      { name: "Firebase", icon: "firebase" },
+      { name: "TMDB API", icon: "tmdb" },
+      { name: "Axios", icon: "axios" },
+      { name: "JavaScript", icon: "javascript" },
+      { name: "CSS", icon: "css" },
     ],
-
     image: "/images/projects/movie.jpg",
-
     github:
       "https://github.com/srutinadar26/movie-review-system",
   },
 ];
-
 /* =========================================================
    NAVIGATION
    ========================================================= */
