@@ -177,27 +177,23 @@ export const skillConnections: [string, string][] = [
   ["JavaScript", "HTML"],
   ["JavaScript", "CSS"],
   ["Tailwind CSS", "CSS"],
-
   ["Node.js", "Express"],
   ["Express", "MongoDB"],
   ["Node.js", "MongoDB"],
   ["PostgreSQL", "Node.js"],
   ["Firebase", "React"],
-
   ["Python", "NumPy"],
   ["NumPy", "Pandas"],
   ["Pandas", "Matplotlib"],
   ["Pandas", "Seaborn"],
   ["Pandas", "Scikit-learn"],
   ["Python", "TensorFlow"],
-
   ["Git", "GitHub"],
   ["Docker", "Node.js"],
 ];
 
 /* =========================================================
    JOURNEY / PROJECT TIMELINE
-   Chronological order: earliest → latest
    ========================================================= */
 
 export interface JourneyItem {
@@ -208,12 +204,9 @@ export interface JourneyItem {
 }
 
 export const journey: JourneyItem[] = [
-  /* ---------------------------------------------------------
-     2024
-     --------------------------------------------------------- */
-
   {
     date: "2024",
+
     title:
       "B.E. Artificial Intelligence & Data Science — SIES Graduate School of Technology",
 
@@ -223,12 +216,9 @@ export const journey: JourneyItem[] = [
     tag: "EDUCATION",
   },
 
-  /* ---------------------------------------------------------
-     2025
-     --------------------------------------------------------- */
-
   {
     date: "August 2025",
+
     title:
       "Management Coordinator — ACM Student Chapter, SIES GST",
 
@@ -238,12 +228,9 @@ export const journey: JourneyItem[] = [
     tag: "LEADERSHIP",
   },
 
-  /* ---------------------------------------------------------
-     2026
-     --------------------------------------------------------- */
-
   {
     date: "March 2026",
+
     title:
       "Automation Bounty — AI Agent Challenge",
 
@@ -255,6 +242,7 @@ export const journey: JourneyItem[] = [
 
   {
     date: "April 2026",
+
     title:
       "Ace of Diamonds — Technovate 2026",
 
@@ -266,6 +254,7 @@ export const journey: JourneyItem[] = [
 
   {
     date: "August 2026",
+
     title:
       "Smart India Hackathon (SIH) — Internal Selection",
 
@@ -277,6 +266,7 @@ export const journey: JourneyItem[] = [
 
   {
     date: "August 2025 to August 2026",
+
     title:
       "Management Coordinator — ACM Student Chapter, SIES GST",
 
@@ -286,12 +276,9 @@ export const journey: JourneyItem[] = [
     tag: "LEADERSHIP",
   },
 
-  /* ---------------------------------------------------------
-     PRESENT
-     --------------------------------------------------------- */
-
   {
     date: "2024 to Present · Expected 2028",
+
     title:
       "B.E. Artificial Intelligence & Data Science — SIES Graduate School of Technology",
 
@@ -309,22 +296,29 @@ export const journey: JourneyItem[] = [
 export const projects = [
   {
     name: "SyncSpace",
+
     description:
       "Real-time collaborative workspace for teams to communicate, organize, and work together.",
+
     stack: [
       { name: "React", icon: "react" },
       { name: "Node.js", icon: "nodejs" },
       { name: "Socket.IO", icon: "socketio" },
       { name: "MongoDB", icon: "mongodb" },
     ],
+
     image: "/images/projects/space.jpg",
-    github: "https://github.com/srutinadar26/SyncSpace",
+
+    github:
+      "https://github.com/srutinadar26/SyncSpace",
   },
 
   {
     name: "UPI Sentinel",
+
     description:
       "AI-powered payment scam prevention and fraud intelligence platform designed to detect suspicious UPI transactions and behavioral patterns.",
+
     stack: [
       { name: "Python", icon: "python" },
       { name: "FastAPI", icon: "fastapi" },
@@ -332,28 +326,38 @@ export const projects = [
       { name: "PostgreSQL", icon: "postgresql" },
       { name: "Docker", icon: "docker" },
     ],
+
     image: "/images/projects/upi.jpg",
-    github: "https://github.com/srutinadar26/UPI-sentinel",
+
+    github:
+      "https://github.com/srutinadar26/UPI-sentinel",
   },
 
   {
     name: "MedVerify",
+
     description:
       "AI-powered medical misinformation detection and verification system that analyzes claims and provides evidence-based verification.",
+
     stack: [
       { name: "Python", icon: "python" },
       { name: "Transformers", icon: "huggingface" },
       { name: "React", icon: "react" },
       { name: "Flask", icon: "flask" },
     ],
+
     image: "/images/projects/med.jpg",
-    github: "https://github.com/srutinadar26/MedVerify",
+
+    github:
+      "https://github.com/srutinadar26/MedVerify",
   },
 
   {
     name: "Harvestify",
+
     description:
       "AI-powered agriculture platform providing crop recommendations and intelligent agricultural assistance.",
+
     stack: [
       { name: "Python", icon: "python" },
       { name: "Scikit-learn", icon: "scikitlearn" },
@@ -361,14 +365,19 @@ export const projects = [
       { name: "HTML", icon: "html" },
       { name: "CSS", icon: "css" },
     ],
+
     image: "/images/projects/harvestify.jpg",
-    github: "https://github.com/srutinadar26/Harvestify",
+
+    github:
+      "https://github.com/srutinadar26/Harvestify",
   },
 
   {
     name: "Movie Review System",
+
     description:
       "Movie discovery and review platform where users can explore movies, watch trailers, manage reviews and watchlists, and receive personalized recommendations.",
+
     stack: [
       { name: "React", icon: "react" },
       { name: "Firebase", icon: "firebase" },
@@ -377,11 +386,14 @@ export const projects = [
       { name: "JavaScript", icon: "javascript" },
       { name: "CSS", icon: "css" },
     ],
+
     image: "/images/projects/movie.jpg",
+
     github:
       "https://github.com/srutinadar26/movie-review-system",
   },
 ];
+
 /* =========================================================
    NAVIGATION
    ========================================================= */

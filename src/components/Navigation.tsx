@@ -32,7 +32,16 @@ export default function Navigation() {
         block: "start",
       });
 
-      window.history.replaceState(null, "", `#${href}`);
+      // Change URL without adding # and without reloading the page
+      const newUrl = href === "hero" ? "/" : `/${href}`;
+
+      window.history.pushState(
+        {
+          section: href,
+        },
+        "",
+        newUrl
+      );
     }
   };
 
@@ -96,91 +105,91 @@ export default function Navigation() {
         }
       `}
     >
-      {nav.map((item) => (
-        <a
-          key={item.href}
-          href={`#${item.href}`}
-          onClick={(e) => handleNavigation(e, item.href)}
-          className="
-            group
-            relative
-            flex
-            shrink-0
-            items-center
-            justify-center
+      {nav.map((item) => {
+        // HOME should point to /
+        // Everything else should point to /section
+        const route = item.href === "hero" ? "/" : `/${item.href}`;
 
-            font-mono
-
-            text-[9px]
-            xs:text-[10px]
-            sm:text-[11px]
-            md:text-[12px]
-
-            tracking-[0.08em]
-            sm:tracking-widest
-
-            text-[#d8d4bd]
-
-            px-2
-            sm:px-2.5
-            md:px-3
-
-            py-1.5
-            sm:py-2
-
-            rounded-full
-            whitespace-nowrap
-
-            transition-all
-            duration-300
-            ease-out
-
-            hover:text-[#f2eed8]
-            hover:-translate-y-[2px]
-
-            hover:bg-[#0b5360]/65
-
-            hover:border
-            hover:border-[#39c6d8]/30
-
-            hover:shadow-[0_7px_20px_rgba(2,35,42,0.45),inset_0_1px_0_rgba(57,198,216,0.18)]
-
-            active:translate-y-0
-            active:scale-[0.97]
-          "
-        >
-          {item.label}
-
-          <span
+        return (
+          <a
+            key={item.href}
+            href={route}
+            onClick={(e) => handleNavigation(e, item.href)}
             className="
-              pointer-events-none
-              absolute
+              group
+              relative
+              flex
+              shrink-0
+              items-center
+              justify-center
 
-              left-1/2
-              bottom-1
+              font-mono
 
-              -translate-x-1/2
+              text-[9px]
+              xs:text-[10px]
+              sm:text-[11px]
+              md:text-[12px]
 
-              w-0
-              h-[1px]
+              tracking-[0.08em]
+              sm:tracking-widest
+
+              text-[#d8d4bd]
+
+              px-2
+              sm:px-2.5
+              md:px-3
+
+              py-1.5
+              sm:py-2
 
               rounded-full
-
-              bg-[#39c6d8]
-
-              opacity-0
+              whitespace-nowrap
 
               transition-all
               duration-300
+              ease-out
 
-              group-hover:w-1/2
-              group-hover:opacity-80
+              hover:text-[#f2eed8]
+              hover:-translate-y-[2px]
+              hover:bg-[#0b5360]/65
+              hover:border
+              hover:border-[#39c6d8]/30
+              hover:shadow-[0_7px_20px_rgba(2,35,42,0.45),inset_0_1px_0_rgba(57,198,216,0.18)]
 
-              shadow-[0_0_8px_rgba(57,198,216,0.7)]
+              active:translate-y-0
+              active:scale-[0.97]
             "
-          />
-        </a>
-      ))}
+          >
+            {item.label}
+
+            <span
+              className="
+                pointer-events-none
+                absolute
+                left-1/2
+                bottom-1
+                -translate-x-1/2
+
+                w-0
+                h-[1px]
+
+                rounded-full
+                bg-[#39c6d8]
+
+                opacity-0
+
+                transition-all
+                duration-300
+
+                group-hover:w-1/2
+                group-hover:opacity-80
+
+                shadow-[0_0_8px_rgba(57,198,216,0.7)]
+              "
+            />
+          </a>
+        );
+      })}
     </nav>
   );
 }

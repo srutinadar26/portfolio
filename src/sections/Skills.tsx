@@ -1,17 +1,27 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { technologies } from "@/data/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
+
+/* =========================================================
+   TYPES
+   ========================================================= */
 
 type IconData = {
   viewBox: string;
   paths: string;
   color: string;
 };
+
+/* =========================================================
+   TECHNOLOGY SVG ICONS
+   ========================================================= */
 
 const techSvgIcons: Record<string, IconData> = {
   python: {
@@ -189,37 +199,52 @@ const techSvgIcons: Record<string, IconData> = {
   },
 };
 
-/*
- * Deliberately scattered positions.
- * These are percentages inside the skills field.
- *
- * They are spaced far enough apart that the 72px
- * balls don't collide on desktop.
- */
+/* =========================================================
+   DESKTOP POSITIONS
+   =========================================================
+   
+   EXACTLY 20 POSITIONS FOR 20 TECHNOLOGIES.
+
+   Python  = index 0
+   GitHub  = index 19
+
+   The old version had only 19 positions, causing:
+
+       Python → position 0
+       GitHub → position 0
+
+   This version removes that collision.
+   ========================================================= */
+
 const desktopPositions = [
-  { x: 8, y: 8 },
-  { x: 25, y: 18 },
-  { x: 44, y: 7 },
-  { x: 64, y: 19 },
-  { x: 84, y: 9 },
+  { x: 7, y: 9 },     // 0  Python
+  { x: 24, y: 18 },    // 1  JavaScript
+  { x: 43, y: 7 },     // 2  React
+  { x: 63, y: 17 },    // 3  Node.js
+  { x: 84, y: 9 },     // 4  Express
 
-  { x: 14, y: 38 },
-  { x: 34, y: 33 },
-  { x: 54, y: 43 },
-  { x: 74, y: 34 },
-  { x: 92, y: 42 },
+  { x: 14, y: 35 },    // 5  HTML
+  { x: 34, y: 31 },    // 6  CSS
+  { x: 54, y: 39 },    // 7  Tailwind CSS
+  { x: 74, y: 34 },    // 8  MongoDB
+  { x: 92, y: 39 },    // 9  PostgreSQL
 
-  { x: 7, y: 67 },
-  { x: 27, y: 58 },
-  { x: 47, y: 72 },
-  { x: 68, y: 61 },
-  { x: 87, y: 70 },
+  { x: 7, y: 57 },     // 10 Firebase
+  { x: 27, y: 55 },    // 11 NumPy
+  { x: 47, y: 61 },    // 12 Pandas
+  { x: 67, y: 56 },    // 13 Matplotlib
+  { x: 87, y: 61 },    // 14 Seaborn
 
-  { x: 17, y: 88 },
-  { x: 38, y: 86 },
-  { x: 59, y: 91 },
-  { x: 80, y: 86 },
+  { x: 16, y: 78 },    // 15 Scikit-learn
+  { x: 37, y: 76 },    // 16 TensorFlow
+  { x: 58, y: 82 },    // 17 Docker
+  { x: 78, y: 77 },    // 18 Git
+  { x: 93, y: 87 },    // 19 GitHub
 ];
+
+/* =========================================================
+   ANIMATION NAMES
+   ========================================================= */
 
 const animationNames = [
   "techFloat0",
@@ -228,19 +253,41 @@ const animationNames = [
   "techFloat3",
 ];
 
+/* =========================================================
+   FLOATING BALL
+   ========================================================= */
+
 function FloatingBall({
   tech,
   index,
 }: {
-  tech: { name: string; icon: string };
+  tech: {
+    name: string;
+    icon: string;
+  };
   index: number;
 }) {
   const ballRef = useRef<HTMLDivElement>(null);
+
   const iconData = techSvgIcons[tech.icon];
 
-  if (!iconData) return null;
+  if (!iconData) {
+    console.warn(`No icon found for ${tech.name}`);
+    return null;
+  }
 
-  const position = desktopPositions[index % desktopPositions.length];
+  const position = desktopPositions[index];
+
+  /*
+   * Safety fallback.
+   * If a new technology is added later and no position exists,
+   * it gets placed near the center rather than crashing.
+   */
+  const safePosition = position ?? {
+    x: 50,
+    y: 50,
+  };
+
   const size = 72;
 
   return (
@@ -248,20 +295,38 @@ function FloatingBall({
       ref={ballRef}
       className="floating-tech-ball absolute"
       style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        transform: "translate(-50%, -50%)",
-        animation: `${animationNames[index % 4]} ${
+        left: `${safePosition.x}%`,
+        top: `${safePosition.y}%`,
+
+        transform:
+          "translate(-50%, -50%)",
+
+        animation: `${
+          animationNames[index % animationNames.length]
+        } ${
           5.5 + (index % 5) * 0.45
-        }s ease-in-out ${(index * 0.25) % 2}s infinite`,
+        }s ease-in-out ${
+          (index * 0.25) % 2
+        }s infinite`,
+
         zIndex: index + 1,
       }}
     >
       <div
-        className="tech-ball group relative flex items-center justify-center rounded-full cursor-default"
+        className="
+          tech-ball
+          group
+          relative
+          flex
+          items-center
+          justify-center
+          cursor-default
+          rounded-full
+        "
         style={{
           width: `${size}px`,
           height: `${size}px`,
+
           background: `
             radial-gradient(
               circle at 30% 22%,
@@ -270,7 +335,10 @@ function FloatingBall({
               rgba(3,30,38,0.98) 100%
             )
           `,
-          border: `1px solid ${iconData.color}55`,
+
+          border:
+            `1px solid ${iconData.color}55`,
+
           boxShadow: `
             0 12px 25px rgba(0,0,0,0.35),
             0 0 20px ${iconData.color}18,
@@ -279,29 +347,59 @@ function FloatingBall({
           `,
         }}
       >
+        {/* INNER RING */}
         <div
-          className="absolute inset-[5px] rounded-full pointer-events-none"
+          className="
+            pointer-events-none
+            absolute
+            inset-[5px]
+            rounded-full
+          "
           style={{
-            border: `1px solid ${iconData.color}20`,
+            border:
+              `1px solid ${iconData.color}20`,
           }}
         />
 
+        {/* TOP LIGHT REFLECTION */}
         <div
-          className="absolute top-[8px] left-[20%] right-[20%] h-[8px] rounded-full blur-[5px] pointer-events-none"
+          className="
+            pointer-events-none
+            absolute
+            left-[20%]
+            right-[20%]
+            top-[8px]
+            h-[8px]
+            rounded-full
+            blur-[5px]
+          "
           style={{
-            background: `${iconData.color}22`,
+            background:
+              `${iconData.color}22`,
           }}
         />
 
+        {/* SVG ICON */}
         <svg
           viewBox={iconData.viewBox}
-          className="relative z-10 h-8 w-8 md:h-9 md:w-9 transition-transform duration-300 group-hover:scale-110"
+          className="
+            relative
+            z-10
+            h-8
+            w-8
+            transition-transform
+            duration-300
+            group-hover:scale-110
+            md:h-9
+            md:w-9
+          "
           aria-hidden="true"
           dangerouslySetInnerHTML={{
             __html: iconData.paths,
           }}
         />
 
+        {/* LABEL */}
         <span
           className="
             pointer-events-none
@@ -338,6 +436,10 @@ function FloatingBall({
   );
 }
 
+/* =========================================================
+   SKILLS SECTION
+   ========================================================= */
+
 export default function Skills() {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -346,98 +448,184 @@ export default function Skills() {
       gsap.from(".floating-tech-ball", {
         opacity: 0,
         scale: 0.5,
+
         duration: 0.75,
+
         stagger: 0.06,
+
         ease: "back.out(1.7)",
+
         scrollTrigger: {
           trigger: rootRef.current,
+
           start: "top 80%",
+
           once: true,
         },
       });
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (
     <section
       id="skills"
       ref={rootRef}
-      className="relative px-5 py-24 sm:px-8 md:px-12 md:py-28 lg:px-16"
+      className="
+        relative
+        px-5
+        py-24
+        sm:px-8
+        md:px-12
+        md:py-28
+        lg:px-16
+      "
     >
       <div className="mx-auto max-w-6xl">
-        <p className="eyebrow mb-4">02 / TECHNICAL ARTIFACTS</p>
 
-        <h2 className="mb-10 font-display text-4xl font-bold tracking-tightest text-ivory sm:text-5xl md:mb-12 md:text-6xl">
+        {/* SECTION LABEL */}
+
+        <p className="eyebrow mb-4">
+          02 / TECHNICAL ARTIFACTS
+        </p>
+
+        {/* TITLE */}
+
+        <h2
+          className="
+            mb-10
+            font-display
+            text-4xl
+            font-bold
+            tracking-tightest
+            text-ivory
+            sm:text-5xl
+            md:mb-12
+            md:text-6xl
+          "
+        >
           Tech Stack
         </h2>
 
+        {/* =================================================
+            TECHNOLOGY FIELD
+            ================================================= */}
+
         <div
-          className="
-            relative
-            h-[760px]
-            w-full
-            overflow-visible
-            sm:h-[720px]
-            md:h-[700px]
-            lg:h-[680px]
-          "
-        >
-          {technologies.map((tech, index) => (
-            <FloatingBall
-              key={`${tech.name}-${index}`}
-              tech={tech}
-              index={index}
-            />
-          ))}
+  className="
+    relative
+    h-[650px]
+    w-full
+    overflow-visible
+    sm:h-[650px]
+    md:h-[600px]
+    lg:h-[580px]
+  "
+>
+          {technologies.map(
+            (tech, index) => (
+              <FloatingBall
+                key={`${tech.name}-${index}`}
+                tech={tech}
+                index={index}
+              />
+            )
+          )}
         </div>
       </div>
 
+      {/* =================================================
+          ANIMATIONS + RESPONSIVE LAYOUT
+          ================================================= */}
+
       <style jsx>{`
+
+        /* ================================================
+           FLOATING ANIMATION 0
+           ================================================ */
+
         @keyframes techFloat0 {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform:
+              translate(-50%, -50%)
+              translateY(0px);
           }
 
           50% {
-            transform: translate(-50%, -50%) translateY(-8px);
+            transform:
+              translate(-50%, -50%)
+              translateY(-8px);
           }
         }
+
+
+        /* ================================================
+           FLOATING ANIMATION 1
+           ================================================ */
 
         @keyframes techFloat1 {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform:
+              translate(-50%, -50%)
+              translateY(0px);
           }
 
           50% {
-            transform: translate(-50%, -50%) translateY(7px);
+            transform:
+              translate(-50%, -50%)
+              translateY(7px);
           }
         }
+
+
+        /* ================================================
+           FLOATING ANIMATION 2
+           ================================================ */
 
         @keyframes techFloat2 {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform:
+              translate(-50%, -50%)
+              translateY(0px);
           }
 
           50% {
-            transform: translate(-50%, -50%) translateY(-6px);
+            transform:
+              translate(-50%, -50%)
+              translateY(-6px);
           }
         }
+
+
+        /* ================================================
+           FLOATING ANIMATION 3
+           ================================================ */
 
         @keyframes techFloat3 {
           0%,
           100% {
-            transform: translate(-50%, -50%) translateY(0px);
+            transform:
+              translate(-50%, -50%)
+              translateY(0px);
           }
 
           50% {
-            transform: translate(-50%, -50%) translateY(6px);
+            transform:
+              translate(-50%, -50%)
+              translateY(6px);
           }
         }
+
+
+        /* ================================================
+           BALL TRANSITION
+           ================================================ */
 
         .tech-ball {
           transition:
@@ -446,197 +634,262 @@ export default function Skills() {
             border-color 300ms ease;
         }
 
+
+        /* ================================================
+           BALL HOVER
+           ================================================ */
+
         .tech-ball:hover {
-          transform: translateY(-6px) scale(1.1);
-          border-color: rgba(57, 198, 216, 0.65) !important;
+          transform:
+            translateY(-6px)
+            scale(1.1);
+
+          border-color:
+            rgba(57, 198, 216, 0.65) !important;
 
           box-shadow:
             0 18px 35px rgba(0, 0, 0, 0.4),
             0 0 30px rgba(57, 198, 216, 0.22),
-            inset 0 1px 1px rgba(255, 255, 255, 0.1) !important;
+            inset 0 1px 1px
+              rgba(255, 255, 255, 0.1) !important;
         }
 
-        /*
-         * Tablet layout
-         * Keeps the scattered appearance while reducing
-         * the horizontal spread.
-         */
+
+        /* ================================================
+           TABLET
+           ================================================ */
+
         @media (max-width: 900px) {
+
           .floating-tech-ball:nth-child(1) {
-            left: 8% !important;
-            top: 8% !important;
+            left: 7% !important;
+            top: 7% !important;
           }
 
           .floating-tech-ball:nth-child(2) {
-            left: 30% !important;
-            top: 18% !important;
+            left: 28% !important;
+            top: 16% !important;
           }
 
           .floating-tech-ball:nth-child(3) {
-            left: 55% !important;
+            left: 53% !important;
             top: 7% !important;
           }
 
           .floating-tech-ball:nth-child(4) {
-            left: 80% !important;
-            top: 20% !important;
+            left: 78% !important;
+            top: 17% !important;
           }
 
           .floating-tech-ball:nth-child(5) {
-            left: 18% !important;
-            top: 38% !important;
+            left: 94% !important;
+            top: 9% !important;
           }
 
           .floating-tech-ball:nth-child(6) {
-            left: 43% !important;
+            left: 10% !important;
             top: 34% !important;
           }
 
           .floating-tech-ball:nth-child(7) {
-            left: 68% !important;
-            top: 42% !important;
+            left: 34% !important;
+            top: 31% !important;
           }
 
           .floating-tech-ball:nth-child(8) {
-            left: 90% !important;
-            top: 36% !important;
-          }
-
-          .floating-tech-ball:nth-child(9) {
-            left: 9% !important;
-            top: 66% !important;
-          }
-
-          .floating-tech-ball:nth-child(10) {
-            left: 34% !important;
-            top: 58% !important;
-          }
-
-          .floating-tech-ball:nth-child(11) {
             left: 59% !important;
-            top: 68% !important;
-          }
-
-          .floating-tech-ball:nth-child(12) {
-            left: 84% !important;
-            top: 62% !important;
-          }
-
-          .floating-tech-ball:nth-child(13) {
-            left: 20% !important;
-            top: 88% !important;
-          }
-
-          .floating-tech-ball:nth-child(14) {
-            left: 47% !important;
-            top: 84% !important;
-          }
-
-          .floating-tech-ball:nth-child(15) {
-            left: 74% !important;
-            top: 90% !important;
-        }
-
-        /*
-         * Mobile layout
-         * The balls remain scattered instead of becoming
-         * a boring straight grid.
-         */
-        @media (max-width: 640px) {
-          .floating-tech-ball {
-            transform: translate(-50%, -50%) scale(0.86);
-          }
-
-          .floating-tech-ball:nth-child(1) {
-            left: 15% !important;
-            top: 7% !important;
-          }
-
-          .floating-tech-ball:nth-child(2) {
-            left: 52% !important;
-            top: 5% !important;
-          }
-
-          .floating-tech-ball:nth-child(3) {
-            left: 84% !important;
-            top: 12% !important;
-          }
-
-          .floating-tech-ball:nth-child(4) {
-            left: 29% !important;
-            top: 22% !important;
-          }
-
-          .floating-tech-ball:nth-child(5) {
-            left: 68% !important;
-            top: 25% !important;
-          }
-
-          .floating-tech-ball:nth-child(6) {
-            left: 10% !important;
             top: 38% !important;
           }
 
-          .floating-tech-ball:nth-child(7) {
-            left: 48% !important;
-            top: 37% !important;
-          }
-
-          .floating-tech-ball:nth-child(8) {
-            left: 87% !important;
-            top: 43% !important;
-          }
-
           .floating-tech-ball:nth-child(9) {
-            left: 27% !important;
-            top: 52% !important;
+            left: 82% !important;
+            top: 34% !important;
           }
 
           .floating-tech-ball:nth-child(10) {
-            left: 65% !important;
-            top: 55% !important;
+            left: 94% !important;
+            top: 43% !important;
           }
 
           .floating-tech-ball:nth-child(11) {
-            left: 10% !important;
-            top: 67% !important;
+            left: 8% !important;
+            top: 57% !important;
           }
 
           .floating-tech-ball:nth-child(12) {
-            left: 47% !important;
-            top: 67% !important;
+            left: 31% !important;
+            top: 55% !important;
           }
 
           .floating-tech-ball:nth-child(13) {
-            left: 86% !important;
-            top: 73% !important;
+            left: 55% !important;
+            top: 62% !important;
+          }
+
+          .floating-tech-ball:nth-child(14) {
+            left: 79% !important;
+            top: 57% !important;
+          }
+
+          .floating-tech-ball:nth-child(15) {
+            left: 93% !important;
+            top: 65% !important;
+          }
+
+          .floating-tech-ball:nth-child(16) {
+            left: 14% !important;
+            top: 79% !important;
+          }
+
+          .floating-tech-ball:nth-child(17) {
+            left: 39% !important;
+            top: 76% !important;
+          }
+
+          .floating-tech-ball:nth-child(18) {
+            left: 64% !important;
+            top: 83% !important;
+          }
+
+          .floating-tech-ball:nth-child(19) {
+            left: 87% !important;
+            top: 79% !important;
+          }
+
+          .floating-tech-ball:nth-child(20) {
+            left: 94% !important;
+            top: 92% !important;
+          }
+        }
+
+
+        /* ================================================
+           MOBILE
+           ================================================ */
+
+        @media (max-width: 640px) {
+
+          .floating-tech-ball {
+            transform:
+              translate(-50%, -50%)
+              scale(0.78);
+          }
+
+
+          .floating-tech-ball:nth-child(1) {
+            left: 12% !important;
+            top: 5% !important;
+          }
+
+          .floating-tech-ball:nth-child(2) {
+            left: 50% !important;
+            top: 4% !important;
+          }
+
+          .floating-tech-ball:nth-child(3) {
+            left: 87% !important;
+            top: 8% !important;
+          }
+
+          .floating-tech-ball:nth-child(4) {
+            left: 27% !important;
+            top: 17% !important;
+          }
+
+          .floating-tech-ball:nth-child(5) {
+            left: 70% !important;
+            top: 19% !important;
+          }
+
+          .floating-tech-ball:nth-child(6) {
+            left: 8% !important;
+            top: 29% !important;
+          }
+
+          .floating-tech-ball:nth-child(7) {
+            left: 47% !important;
+            top: 30% !important;
+          }
+
+          .floating-tech-ball:nth-child(8) {
+            left: 88% !important;
+            top: 32% !important;
+          }
+
+          .floating-tech-ball:nth-child(9) {
+            left: 25% !important;
+            top: 42% !important;
+          }
+
+          .floating-tech-ball:nth-child(10) {
+            left: 67% !important;
+            top: 43% !important;
+          }
+
+          .floating-tech-ball:nth-child(11) {
+            left: 8% !important;
+            top: 54% !important;
+          }
+
+          .floating-tech-ball:nth-child(12) {
+            left: 48% !important;
+            top: 55% !important;
+          }
+
+          .floating-tech-ball:nth-child(13) {
+            left: 89% !important;
+            top: 56% !important;
           }
 
           .floating-tech-ball:nth-child(14) {
             left: 27% !important;
-            top: 83% !important;
+            top: 66% !important;
           }
 
           .floating-tech-ball:nth-child(15) {
-            left: 65% !important;
-            top: 87% !important;
+            left: 68% !important;
+            top: 68% !important;
           }
 
           .floating-tech-ball:nth-child(16) {
-            left: 90% !important;
+            left: 9% !important;
+            top: 79% !important;
+          }
+
+          .floating-tech-ball:nth-child(17) {
+            left: 48% !important;
+            top: 80% !important;
+          }
+
+          .floating-tech-ball:nth-child(18) {
+            left: 88% !important;
+            top: 80% !important;
+          }
+
+          .floating-tech-ball:nth-child(19) {
+            left: 28% !important;
             top: 91% !important;
           }
 
-          .floating-tech-ball:nth-child(n + 17) {
-            display: none;
+          .floating-tech-ball:nth-child(20) {
+            left: 70% !important;
+            top: 94% !important;
           }
         }
 
+
+        /* ================================================
+           REDUCED MOTION
+           ================================================ */
+
         @media (prefers-reduced-motion: reduce) {
+
           .floating-tech-ball {
             animation: none !important;
           }
+
         }
+
       `}</style>
     </section>
   );
