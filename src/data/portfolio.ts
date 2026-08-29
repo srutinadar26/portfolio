@@ -370,28 +370,7 @@ export const projects = [
 
     github:
       "https://github.com/srutinadar26/Harvestify",
-  },
-
-  {
-    name: "Movie Review System",
-
-    description:
-      "Movie discovery and review platform where users can explore movies, watch trailers, manage reviews and watchlists, and receive personalized recommendations.",
-
-    stack: [
-      { name: "React", icon: "react" },
-      { name: "Firebase", icon: "firebase" },
-      { name: "TMDB API", icon: "tmdb" },
-      { name: "Axios", icon: "axios" },
-      { name: "JavaScript", icon: "javascript" },
-      { name: "CSS", icon: "css" },
-    ],
-
-    image: "/images/projects/movie.jpg",
-
-    github:
-      "https://github.com/srutinadar26/movie-review-system",
-  },
+  }
 ];
 
 /* =========================================================
